@@ -31,10 +31,15 @@ class DashboardController extends AbstractDashboardController {
     public function configureDashboard(): Dashboard {
         return Dashboard::new()
             ->setTitle('Book & Cook');
+
     }
 
     public function configureMenuItems(): iterable {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+
+        yield MenuItem::section('Users');
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+
+        yield MenuItem::section('Produits');
     }
 }
