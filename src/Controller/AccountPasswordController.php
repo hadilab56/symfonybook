@@ -24,6 +24,8 @@ class AccountPasswordController extends AbstractController {
 
     #[Route('/compte/changement-mot-de-passe', name: 'app_account_password')]
     public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response {
+        $notificationMessage = null;
+
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordType::class, $user);
 
@@ -37,11 +39,16 @@ class AccountPasswordController extends AbstractController {
                 $user->setPassword($hashedPassword);
 
                 $this->entityManager->flush();
+
+                $notificationMessage = "Votre mot de passe a bien été mis à jour !";
+            } else {
+                $notificationMessage = "Votre mot de passe actuel ne correspond pas...";
             }
         }
 
         return $this->render('account/password.html.twig', [
             'form' => $form->createView(),
+            'notificationMessage' => $notificationMessage,
         ]);
     }
 }
