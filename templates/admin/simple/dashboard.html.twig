@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Simple Admin Dashboard</h1>
+    <p>Welcome to the Book And Cook administration interface.</p>
+    
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Books</h5>
+                    <p class="card-text">You have {{ bookCount }} books in your database.</p>
+                    <a href="{{ path('app_admin_simple_books') }}" class="btn btn-primary">Manage Books</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Users</h5>
+                    <p class="card-text">You have {{ userCount }} users registered.</p>
+                    <a href="{{ path('app_admin_simple_users') }}" class="btn btn-primary">Manage Users</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <div class="btn-group">
+            <a href="{{ path('home') }}" class="btn btn-secondary">
+                <i class="fa fa-arrow-left"></i> Back to Website
+            </a>
+            <a href="{{ path('livre_index') }}" class="btn btn-primary">
+                <i class="fa fa-book"></i> View Public Book Page
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

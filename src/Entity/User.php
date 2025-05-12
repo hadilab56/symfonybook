@@ -14,12 +14,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
     private ?int $id = null;
+    
 
     #[ORM\Column(length: 180, unique: true, type: 'string')]
     private ?string $email = null;
 
     #[ORM\Column(type: "json")]
-    private array $roles = [];
+    private $roles = [];
 
     /**
      * @var string The hashed password
@@ -47,6 +48,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
         return $this;
     }
 
+    public function getRoles(): array
+    {
+        // Always ensure that a role is provided (e.g., 'ROLE_USER' as a fallback)
+        return array_unique($this->roles ?: ['ROLE_USER']);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -57,26 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
     }
 
     /**
-     * @see UserInterface
-     */
-    public function getRoles(): array {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string {
+    public function getPassword(): ?string {
         return $this->password;
     }
 
@@ -89,8 +85,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
     /**
      * @see UserInterface
      */
-    public function eraseCredentials() {
-        // If you store any temporary, sensitive data on the user, clear it here
+    public function eraseCredentials(): void {
+        // Clear any temporary, sensitive data (e.g., plain password)
         // $this->plainPassword = null;
     }
 

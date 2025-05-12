@@ -1,0 +1,50 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}Book And Cook - Administration{% endblock %}
+
+{% block main %}
+    <div class="d-flex justify-content-center">
+        <div class="card" style="width: 80%;">
+            <div class="card-body">
+                <h5 class="card-title">Welcome to Book And Cook Administration</h5>
+                <p class="card-text">Manage your books, users, and other resources from this dashboard.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="fa fa-book"></i> Books
+                                </h5>
+                                <p class="card-text">Manage your book inventory, add new books, update prices.</p>
+                                <a href="{{ ea_url().setController('App\\\\Controller\\\\Admin\\\\BookCrudController') }}" class="btn btn-primary">
+                                    <i class="fa fa-book"></i> Manage Books
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="fa fa-user"></i> Users
+                                </h5>
+                                <p class="card-text">Manage users, permissions, and account settings.</p>
+                                <a href="{{ ea_url().setController('App\\\\Controller\\\\Admin\\\\UserCrudController') }}" class="btn btn-primary">
+                                    <i class="fa fa-user"></i> Manage Users
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="{{ path('app_home') }}" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left"></i> Back to Website
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

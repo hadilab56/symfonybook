@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Gestion des livres{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Gestion des Livres</h1>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Ajouter un Livre</h2>
+            <form action="{{ path('admin_add_book') }}" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titre du Livre</label>
+                    <input type="text" id="title" name="title" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Auteur</label>
+                    <input type="text" id="author" name="author" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="isbn" class="form-label">ISBN</label>
+                    <input type="text" id="isbn" name="isbn" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Liste des Livres</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>ISBN</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.isbn }}</td>
+                        <td>
+                            <!-- Formulaire pour supprimer un livre -->
+                            <form action="{{ path('admin_delete_book', { 'id': book.id }) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+
+                            <!-- Lien pour modifier un livre -->
+                            <a href="{{ path('admin_edit_book', { 'id': book.id }) }}" class="btn btn-primary btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucun livre disponible</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
