@@ -17,7 +17,7 @@ class LivreController extends AbstractController
         $this->em = $em; // Injection du gestionnaire d'entités
     }
 
-    #[Route('/livre', name: 'livre_index')]
+    #[Route(path: '/livre', name: 'livre_index')]
     public function index(): Response
     {
         // Récupérer les livres depuis la base de données
